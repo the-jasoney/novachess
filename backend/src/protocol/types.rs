@@ -37,3 +37,27 @@ pub struct TimeControl {
     pub delay: u32
 }
 
+pub struct Clock {
+    pub white: f64,
+    pub black: f64,
+}
+
+pub struct Game {
+    pub gameid: String,
+    pub userplays: Color,
+    pub toplay: Color,
+    pub opponent: QuickLoadUser,
+    pub clock: Clock
+}
+
+pub struct QuickLoadUser {
+    pub id: String,
+    pub username: String,
+    pub rating: u16
+}
+
+pub struct EloChange {
+    pub win: u16,
+    pub lose: u16,
+    pub draw: u16
+}

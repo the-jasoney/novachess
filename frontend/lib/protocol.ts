@@ -111,6 +111,12 @@ export type KeepAlivePacket = {
       /// Which side to play
       toplay: Color,
 
+      opponent: {
+        id: string,
+        username: string,
+        rating: number
+      }
+
       /// Time remaining on each side (seconds)
       clock: {
         white: number,
@@ -190,7 +196,8 @@ export type MovePacket = {
   id: bigint,
   cmd: 'make_move',
   data: {
-    move: Move
+    move: Move,
+    gameid: string
   }
 }
 
@@ -227,14 +234,26 @@ export type AcknowledgeLogonPacket = {
   cmd: 'acknowledge_logon',
   data: {
     games: {
-      id: string,
-      opponent: {
-        username: string,
-        rating: number,
-        id: string
-      },
-      turn: Color,
+      /// Game ID
+      gameid: string,
+
+      /// Which side user plays
+      userplays: Color,
+
+      /// Which side to play
       toplay: Color,
+
+      opponent: {
+        id: string,
+        username: string,
+        rating: number
+      }
+
+      /// Time remaining on each side (seconds)
+      clock: {
+        white: number,
+        black: number
+      }
     }[],
   },
 };
@@ -414,8 +433,7 @@ export type TerminateConnectionPacket = {
 };
 
 
-export type ClientSendPackets = RequestGameVsUserPacket
-                              | KeepAlivePacket
+export type ClientSendPackets = RequestGameVsUserPacket  
                               | AcknowledgePacket
                               | LogonAccountPacket
                               | LogonAnonymousPacket
@@ -427,9 +445,11 @@ export type ClientSendPackets = RequestGameVsUserPacket
                               | TerminateConnectionPacket;
 
 export type ClientRecievePackets = AcknowledgeLogonPacket
+                                 | KeepAlivePacket
                                  | AssignTempIDPacket
                                  | ServerErrPacket
                                  | GameFoundPacket
+                                 | AcknowledgePacket
                                  | UserMakeMovePacket
                                  | OpponentMovePacket
                                  | OpponentResignsPacket
