@@ -7,14 +7,14 @@ import { FaChessBoard } from 'react-icons/fa';
 import { TfiBlackboard } from 'react-icons/tfi';
 import { MdLogin, MdSupervisorAccount } from 'react-icons/md';
 
-export default function SidebarComponent() {
+export function Component() {
   return (
     <div id="sidebar">
       <Sidebar aria-label="Sidebar" className="h-screen">
         <Sidebar.Items>
           <Sidebar.ItemGroup>
             <Sidebar.Item
-              href="#"
+              href="/play"
               icon={FaChessBoard}
             >
               <p>
