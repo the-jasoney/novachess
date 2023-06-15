@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+import "./api/get_uid.proto";
+import "./api/new_account.proto";
+
+service Novachess {
+    rpc GetUid(novachess.api.get_uid.GetUidRequest) returns
+        (novachess.api.get_uid.GetUidReply);
+
+    rpc NewAccount(novachess.api.new_account.NewAccountRequest) returns
+        (novachess.api.new_account.NewAccountReply);
+
+    
+}

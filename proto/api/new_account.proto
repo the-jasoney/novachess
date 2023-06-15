@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package novachess.api.new_account;
+
+message CreateAccountRequest {
+    string username = 1;
+    string email    = 2;
+    string password = 3;
+}
+
+message CreateAccountSuccess {
+    string uid = 1;
+}
+
+message CreateAccountError {
+    string error = 1;
+}
+
+message CreateAccountReply {
+    oneof error_or_success {
+        CreateAccountSuccess success = 1;
+        CreateAccountError   err     = 2;
+    }
+}

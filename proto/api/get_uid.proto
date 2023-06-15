@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package novachess.api.get_uid;
+
+import "google/protobuf/timestamp.proto";
+
+message GetUidRequest {
+    oneof username_or_email {
+        string username = 1;
+        string email    = 2;
+    }
+
+    string password = 3;
+}
+
+message GetUidSuccess {
+    string                    uid     = 1;
+    google.protobuf.Timestamp expires = 2;
+}
+
+message GetUidError {
+    string reason = 1;
+}
+
+message GetUidReply {
+    oneof error_or_success {
+        GetUidSuccess success = 1;
+        GetUidError   error   = 2;
+    }
+}
