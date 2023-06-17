@@ -1,0 +1,9 @@
+{
+    "protoc": {
+        "options": [
+            "-Iproto",
+            "-Iproto/api",
+            "-Iproto/game"
+        ]
+    }
+}

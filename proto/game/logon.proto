@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package novachess.game.logon;
+
+message LogonAccount {
+    string uid = 1;
+}
+
+message AcknowledgeLogon {
+    string id = 1;
+}

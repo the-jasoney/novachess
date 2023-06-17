@@ -1,40 +1,38 @@
 pub trait BitManipulatable {
-    /// The size in bits
-    const BIT_SIZE: usize;
-    
     /// Get the bits as an array of size `BIT_SIZE`
-    fn get_bits(&self) -> [bool; Self::BIT_SIZE] {
-        let mut bits = [false; Self::BIT_SIZE];
-    
-        for i in 0..Self::BIT_SIZE {
-            bits[i] = self.get_bit(i);
-        }
-    
-        bits
-    }
-    
-    /// Get a specific bit
-    fn get_bit(&self, bit: usize) -> bool {
-        // A bit mask that grabs the bit in question. Examples (u8):
-        // bit = 0
-        // 0b 0000 0001
-        // bit = 2
-        // 0b 0000 0100
-        let mask = 1 << bit;
-        
-        // Bit in its original position. Examples (u8):
-        // bit = 5, number = 0b 1010 0101
-        // 0b 0010 0000
-        let bit = self & mask;
+    fn get_bits(&self) -> Vec<bool>;
 
-        bit > 0 // if bit > 0, bit is on, else it is not
+    /// Get a specific bit
+    fn get_bit(&self, bit: usize) -> bool;
+
+    /// Set a specific bit
+    fn set_bit(&mut self, bit: u8);
+
+    /// Clear a specific bit
+    fn clear_bit(&mut self, bit: u8);
+}
+
+impl BitManipulatable for u64 {
+    fn get_bits(&self) -> Vec<bool> {
+        let mut res: Vec<bool> = vec![];
+
+        for i in 0..64 {
+            res.push(((1 << i) & *self) > 0);
+        }
+
+        res
+    }
+
+    fn get_bit(&self, bit: usize) -> bool {
+        (self & (1 << bit)) > 0
     }
 
     fn set_bit(&mut self, bit: u8) {
-        let mask = !(1 << bit); // select everything but the 
+        *self |= 1 << bit;
     }
 
-    fn clear_bit(bit: u8);
+    fn clear_bit(&mut self, bit: u8) {
+        *self &= !((1 << bit) as u64)
+    }
 }
-
 
